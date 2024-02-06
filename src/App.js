@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+// Components
+import ConverterInputs from "./components/ConverterInputs";
+import RatesList from "./components/RatesList";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import { Routes, Route, Link } from "react-router-dom";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="converter container">
+        <h1 className="converter__text">Always get the real exchange rate</h1>
+
+        <div className="route-links">
+          <Link to={"/"}>Converter</Link>
+          <Link to={"/rates"}>Rates</Link>
+        </div>
+
+        <Routes>
+          <Route exact path="/" element={<ConverterInputs />} />
+          <Route path="/rates" element={<RatesList />} />
+        </Routes>
+      </div>
+    </QueryClientProvider>
   );
 }
 
